@@ -1,19 +1,15 @@
-document.getElementById('get-weather-btn').addEventListener('click', getWeather);
-
-async function getWeather() {
+document.getElementById('get-weather-btn').addEventListener('click', () => {
     const city = document.getElementById('city-input').value;
-    const useLocation = document.getElementById('use-location').checked;
-    let url = '';
+    getWeather(city);
+});
 
-    if (useLocation && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const { latitude, longitude } = position.coords;
-            url = `/api/weather?lat=${latitude}&lon=${longitude}`;
-            fetchWeather(url);
-        });
-    } else {
+async function getWeather(city) {
+    let url = '';
+    if (city.trim() !== '') {
         url = `/api/weather?city=${city}`;
         fetchWeather(url);
+    } else {
+        alert('Please enter a city name.');
     }
 }
 
