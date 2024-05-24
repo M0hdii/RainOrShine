@@ -1,12 +1,16 @@
 import express from 'express';
-const fetch = await import('node-fetch'); // Use dynamic import
-import path from 'path'; // Import the path module
+import { fileURLToPath } from 'url';
+import { join, dirname } from 'path';
+const fetch = await import('node-fetch');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Get the directory name of the current module file
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // Serve static files from the 'Climacast' directory
-app.use(express.static(path.join(__dirname, 'Climacast')));
+app.use(express.static(join(__dirname, 'Climacast')));
 
 app.get('/api/weather', async (req, res) => {
     const { city, lat, lon } = req.query;
