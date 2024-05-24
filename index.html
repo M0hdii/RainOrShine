@@ -3,48 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Climacast Weather App</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
 </head>
 <body>
     <h1>Weather App</h1>
-    <input type="text" id="cityInput" placeholder="Enter city name">
-    <button id="searchBtn">Search</button>
-    <div id="weatherInfo"></div>
-    
-    <script src="client.js"></script>
-</body>
-</html>
-    <h1>Climacast Weather App</h1>
-    <form id="weatherForm">
-        <label for="cityInput">Enter City Name:</label>
-        <input type="text" id="cityInput" name="city" required>
-        <button type="submit">Get Weather</button>
-    </form>
-    <div id="weatherInfo"></div>
+    <div>
+        <input type="text" id="city-input" placeholder="Enter city name">
+        <button id="get-weather-btn">Get Weather</button>
+        <label for="use-location">
+            <input type="checkbox" id="use-location">Use Current Location
+        </label>
+    </div>
+    <div id="weather-display"></div>
 
     <script>
-        document.getElementById('weatherForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const city = document.getElementById('cityInput').value;
-            const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`);
-            const data = await response.json();
-            const weatherInfoDiv = document.getElementById('weatherInfo');
-            weatherInfoDiv.innerHTML = `
-                <h2>Weather Information for ${city}</h2>
+        document.getElementById('get-weather-btn').addEventListener('click', getWeather);
+
+        async function getWeather() {
+            const city = document.getElementById('city-input').value;
+            const useLocation = document.getElementById('use-location').checked;
+            let url = '';
+
+            if (useLocation && navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    url = `/api/weather?lat=${latitude}&lon=${longitude}`;
+                    fetchWeather(url);
+                });
+            } else {
+                url = `/api/weather?city=${city}`;
+                fetchWeather(url);
+            }
+        }
+
+        async function fetchWeather(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Weather data not available');
+                const data = await response.json();
+                displayWeather(data);
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        function displayWeather(data) {
+            const weatherDisplay = document.getElementById('weather-display');
+            weatherDisplay.innerHTML = `
+                <h2>Weather for ${data.city}</h2>
                 <p>Temperature: ${data.temperature}°C</p>
                 <p>Condition: ${data.condition}</p>
                 <p>Humidity: ${data.humidity}%</p>
                 <p>Wind Speed: ${data.windSpeed} m/s</p>
             `;
-        });
+        }
     </script>
 </body>
 </html>
