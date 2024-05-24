@@ -1,12 +1,8 @@
-const express = require('express');
-const fetch = require('node-fetch');
-const path = require('path');
+import express from 'express';
+const fetch = await import('node-fetch'); // Use dynamic import
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// Serve static files from the 'Climacast' directory
-app.use(express.static(path.join(__dirname, 'Climacast')));
 
 app.get('/api/weather', async (req, res) => {
     const { city, lat, lon } = req.query;
@@ -21,7 +17,7 @@ app.get('/api/weather', async (req, res) => {
     }
 
     try {
-        const response = await fetch(url);
+        const response = await fetch.default(url); // Access fetch function from dynamic import
         const data = await response.json();
         if (data.cod !== 200) throw new Error(data.message);
 
