@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Serve static files from the 'Climacast' directory
-app.use(express.static(join(__dirname, 'Climacast')));
+app.use(express.static(join(__dirname, 'frontend')));
 
 app.get('/api/weather', async (req, res) => {
     const { city, lat, lon } = req.query;
