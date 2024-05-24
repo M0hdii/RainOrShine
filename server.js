@@ -1,8 +1,12 @@
-import express from 'express';
-import fetch from 'node-fetch';
+const express = require('express');
+const fetch = require('node-fetch');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Serve static files from the 'Climacast' directory
+app.use(express.static(path.join(__dirname, 'Climacast')));
 
 app.get('/api/weather', async (req, res) => {
     const { city, lat, lon } = req.query;
