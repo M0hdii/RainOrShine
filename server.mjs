@@ -9,13 +9,18 @@ const PORT = process.env.PORT || 3000;
 // Get the directory name of the current module file
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Serve static files from the 'Climacast' directory
-app.use(express.static(join(__dirname, '/frontend')));
+// Serve static files from the 'frontend' directory
+app.use(express.static(join(__dirname, '/frontend'), {
+    setHeaders: (res, path) => {
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+    },
+}));
 
-
-// Define a default route to serve index.html
+// Serve the index.html file at the root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/frontend'));
+    res.sendFile(join(__dirname, 'frontend', 'index.html'));
 });
 
 app.get('/api/weather', async (req, res) => {
