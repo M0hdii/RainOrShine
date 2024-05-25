@@ -1,58 +1,138 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+    background: linear-gradient(to right, #6dd5ed, #2193b0); /* Gradient background */
     margin: 0;
     padding: 0;
+    position: relative;
+}
+
+.cloud {
+    position: absolute;
+    top: 50%;
+    left: -200px;
+    width: 200px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    animation: moveCloud 20s linear infinite;
+}
+
+@keyframes moveCloud {
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(calc(100% + 200px));
+    }
 }
 
 .container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
     text-align: center;
+    animation: fadeIn 0.5s ease; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 h1 {
-    color: #333;
-    font-size: 36px;
+    color: #fff; /* White color */
+    font-size: 48px; /* Larger font size */
+    margin-bottom: 30px; /* Increased margin */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Text shadow with more blur */
+    animation: fadeInUp 1s ease; /* Fade-in animation */
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-input[type="text"], button {
-    padding: 10px;
-    margin: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 2px solid #007bff;
+input[type="text"] {
+    padding: 15px 30px; /* Increased padding */
+    margin: 20px;
+    font-size: 24px; /* Larger font size */
+    border-radius: 35px; /* Rounded corners */
+    border: none; /* Remove border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Light shadow */
+    background-color: #fff; /* White background color */
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
+    padding: 15px 30px; /* Increased padding */
+    margin: 20px;
+    font-size: 24px; /* Larger font size */
+    border-radius: 35px; /* Rounded corners */
+    border: none; /* Remove border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Light shadow */
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White color */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Scale-up effect on hover */
 }
 
 #weather-display {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
+    margin-top: 50px; /* Increased margin */
+    padding: 30px; /* Increased padding */
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    animation: slideIn 1s ease; /* Slide-in animation */
 }
 
 .weather-info {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 24px; /* Larger font size */
+    margin-bottom: 20px; /* Increased margin */
+    color: #333; /* Dark gray color */
 }
 
 .weather-info span {
     font-weight: bold;
-    color: #007bff;
+    color: #007bff; /* Blue color */
+}
+
+.city-weather {
+    margin: 20px; /* Increased margin */
+    padding: 20px; /* Increased padding */
+    background-color: #f0f0f0; /* Light gray background color */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Light shadow */
+    animation: fadeIn 1s ease; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

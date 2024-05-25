@@ -4,20 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Climacast</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css" >
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <style>
+        /* Additional inline styles for centering */
+        h1 {
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        .centered-content {
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        #search-result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease;
+        }
+
+        #big-cities {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            animation: fadeInUp 1s ease;
+        }
+
+        .city-weather {
+            flex: 0 1 calc(20% - 20px); /* Adjust width as needed */
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Climacast</h1>
-    <div>
+    <div class="centered-content">
         <input type="text" id="city-input" placeholder="Enter city name">
         <button id="get-weather-btn">Get Weather</button>
         <label for="use-location">
             <input type="checkbox" id="use-location">Use Current Location
         </label>
     </div>
-    <div id="weather-display"></div>
+    <div id="search-result" class="centered-content">
+        <!-- Search result will be displayed here -->
+    </div>
+    <div id="big-cities">
+        <!-- Weather for big world cities will be displayed here -->
+    </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            getWeatherForBigCities();
+        });
+
         document.getElementById('get-weather-btn').addEventListener('click', getWeather);
 
         async function getWeather() {
@@ -49,14 +119,45 @@
         }
 
         function displayWeather(data) {
-            const weatherDisplay = document.getElementById('weather-display');
-            weatherDisplay.innerHTML = `
-                <h2>Weather for ${data.city}</h2>
-                <p>Temperature: ${data.temperature}°C</p>
-                <p>Condition: ${data.condition}</p>
-                <p>Humidity: ${data.humidity}%</p>
-                <p>Wind Speed: ${data.windSpeed} m/s</p>
+            const weatherDisplay = document.getElementById('search-result');
+            const weatherInfo = `
+                <div class="city-weather">
+                    <h2>${data.city}</h2>
+                    <p>Temperature: ${data.temperature}°C</p>
+                    <p>Condition: ${data.condition}</p>
+                    <p>Humidity: ${data.humidity}%</p>
+                    <p>Wind Speed: ${data.windSpeed} m/s</p>
+                </div>
             `;
+            weatherDisplay.innerHTML = weatherInfo;
+        }
+
+        async function getWeatherForBigCities() {
+            const cities = ['London', 'New York', 'Tokyo', 'Paris', 'Moscow'];
+            for (const city of cities) {
+                const url = `/api/weather?city=${city}`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayBigCityWeather(data);
+                } else {
+                    console.error('Error fetching weather for', city);
+                }
+            }
+        }
+
+        function displayBigCityWeather(data) {
+            const weatherDisplay = document.getElementById('big-cities');
+            const weatherInfo = `
+                <div class="city-weather">
+                    <h2>${data.city}</h2>
+                    <p>Temperature: ${data.temperature}°C</p>
+                    <p>Condition: ${data.condition}</p>
+                    <p>Humidity: ${data.humidity}%</p>
+                    <p>Wind Speed: ${data.windSpeed} m/s</p>
+                </div>
+            `;
+            weatherDisplay.insertAdjacentHTML('beforeend', weatherInfo);
         }
     </script>
 </body>
