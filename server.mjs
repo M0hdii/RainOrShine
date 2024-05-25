@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Serve static files from the 'Climacast' directory
 app.use(express.static(join(__dirname, 'frontend')));
 
+
 // Define a default route to serve index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
