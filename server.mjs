@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Serve static files from the 'Climacast' directory
-app.use(express.static(join(__dirname, 'frontend')));
+app.use(express.static(join(__dirname, '/frontend')));
 
 
 // Define a default route to serve index.html
