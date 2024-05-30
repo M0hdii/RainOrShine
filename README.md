@@ -30,8 +30,10 @@ Optionally, check the "Use Current Location" box to fetch weather data for your 
 Click on the "Get Weather" button to view the weather forecast.
 Weather details for the searched city or current location will be displayed.
 
-License
+##License
+
 This project is licensed under the MIT License - see the [LICENSE.txt](https://github.com/M0hdii/RainOrShine/files/15504834/LICENSE.txt) file for details.
 
-Acknowledgments
+##Acknowledgments
+
 Weather data provided by OpenWeatherMap.
