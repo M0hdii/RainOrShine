@@ -19,8 +19,7 @@ RainOrShine is a weather application that provides users with real-time weather 
 ## Installation
 
 You can access the RainOrShine application directly through the following link:
-
-[www.rainorshine.software](www.rainorshine.software)
+www.rainorshine.software
 
 No installation is required; simply visit the link to use the application.
 
