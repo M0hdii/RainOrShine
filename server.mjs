@@ -28,9 +28,9 @@ app.get('/api/weather', async (req, res) => {
     let url = '';
 
     if (city) {
-        url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ba4dcc991544c7aa7e97f906d2d8965c&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ccc1534c3c516c8a83b22e235b5690c6&units=metric`;
     } else if (lat && lon) {
-        url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ba4dcc991544c7aa7e97f906d2d8965c&units=metric`;
+        url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=ccc1534c3c516c8a83b22e235b5690c6&units=metric`;
     } else {
         return res.status(400).json({ error: 'City or coordinates required' });
     }
