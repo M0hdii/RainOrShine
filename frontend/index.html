@@ -7,90 +7,179 @@
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
     <style>
         /* Additional inline styles for centering */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f2f2f2;
+        }
+
         h1 {
             text-align: center;
+            margin-top: 20px; /* Adjusted margin top */
             animation: fadeInDown 1s ease;
+        }
+
+        .rotatingText {
+            text-align: center;
+            margin-top: 5px; /* Adjusted margin top */
+        }
+
+        .rotatingText-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px; /* Adjusted margin top */
+        }
+
+        .rotatingText-adjective {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #000; /* Changed text color to black */
+            margin: 0 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease;
+            font-family: 'Poppins', sans-serif; /* Set font family to Poppins */
         }
 
         .centered-content {
             text-align: center;
             animation: fadeInUp 1s ease;
+            margin-top: 10px; /* Adjusted margin top */
         }
 
-        #search-result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1s ease;
-        }
-
-        .search-result-card {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            animation: fadeInUp 1s ease;
-        }
-
-        #big-cities {
+        .content_wrapper {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            animation: fadeInUp 1s ease;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 1200px;
         }
 
-        .city-weather {
-            flex: 0 1 calc(20% - 20px); /* Adjust width as needed */
+        .card_bg {
+            background: url(https://i.ibb.co/M9LB3Kq/Glassmorphism-Background.png);
+            background-size: cover;
+            padding: 2rem;
+            width: 100%;
+            background-color: #eee;
+        }
+
+        .card {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            height: 200px;
+            border-radius: 30px;
+            margin: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(16.5px);
+            -webkit-backdrop-filter: blur(16.5px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 200px;
             margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
             animation: fadeInUp 1s ease;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        sup {
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            text-transform: capitalize;
+        }
+
+        .location {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 33px;
+            text-transform: capitalize;
+            color: #000;
+        }
+
+        .degree {
+            font-size: 28px;
+            line-height: 10px;
+            text-transform: capitalize;
+            color: #23226b;
+        }
+
+        .weather-status {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 20px;
+            text-transform: uppercase;
+            color: #ffad1c;
+            text-shadow: 1px 1px 1px rgba(0.5, 0.5, 0.5, 0.5);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 8px;
         }
 
         @keyframes fadeInUp {
-            0% {
+            from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
         @keyframes fadeInDown {
-            0% {
+            from {
                 opacity: 0;
                 transform: translateY(-20px);
             }
-            100% {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        
     </style>
 </head>
 <body>
     <h1>RainOrShine</h1>
+    <section class="rotatingText">
+        <div class="rotatingText-content">
+            <h2 class="rotatingText-adjective">Reliable</h2>
+            <h2 class="rotatingText-adjective">Accurate</h2>
+            <h2 class="rotatingText-adjective">Perfect</h2>
+        </div>
+    </section>
     <div class="centered-content">
         <input type="text" id="city-input" placeholder="Enter city name">
         <button id="get-weather-btn">Get Weather</button>
-        <label for="use-location">
+        <label for="use-location" class="checkbox-label">
             <input type="checkbox" id="use-location">Use Current Location
         </label>
     </div>
-    <div id="search-result" class="centered-content">
-        <!-- Search result will be displayed here -->
+    <div class="content_wrapper">
+        <div class="content_wrapper" id="search-result">
+            <!-- Search result cards will be displayed here -->
+        </div>
     </div>
-    <div id="big-cities">
-        <!-- Weather for big world cities will be displayed here -->
+    <div class="content_wrapper" id="big-cities">
+        <!-- Big cities weather will be displayed here -->
     </div>
 
     <script>
@@ -131,12 +220,12 @@
         function displayWeather(data) {
             const weatherDisplay = document.getElementById('search-result');
             const weatherInfo = `
-                <div class="search-result-card">
-                    <h2>${data.city}</h2>
-                    <p>Temperature: ${data.temperature}°C</p>
-                    <p>Condition: ${data.condition}</p>
-                    <p>Humidity: ${data.humidity}%</p>
-                    <p>Wind Speed: ${data.windSpeed} m/s</p>
+                <div class="card">
+                    <div class="card-content">
+                        <p class="location">${data.city}</p>
+                        <p class="degree">${data.temperature}°C</p>
+                        <p class="weather-status">${data.condition}</p>
+                    </div>
                 </div>
             `;
             weatherDisplay.innerHTML = weatherInfo;
@@ -159,12 +248,12 @@
         function displayBigCityWeather(data) {
             const weatherDisplay = document.getElementById('big-cities');
             const weatherInfo = `
-                <div class="city-weather">
-                    <h2>${data.city}</h2>
-                    <p>Temperature: ${data.temperature}°C</p>
-                    <p>Condition: ${data.condition}</p>
-                    <p>Humidity: ${data.humidity}%</p>
-                    <p>Wind Speed: ${data.windSpeed} m/s</p>
+                <div class="card">
+                    <div class="card-content">
+                        <p class="location">${data.city}</p>
+                        <p class="degree">${data.temperature}°C</p>
+                        <p class="weather-status">${data.condition}</p>
+                    </div>
                 </div>
             `;
             weatherDisplay.insertAdjacentHTML('beforeend', weatherInfo);
